@@ -22,7 +22,7 @@ QVariant TestModel::data(const QModelIndex &index, int role) const {
     switch (role) {
     case Roles::ColorRole:
         return QVariant(
-            index.row() == 15 ? QColor(0, 0, 0, 0) : QColor(240, 240, 240)
+            index.row() == 15 ? QColor(0, 0, 0, 0) : QColor(230, 230, 200)
         );
     case Roles::TextRole:
         return index.row() == 15 ? "" : m_data[index.row()];

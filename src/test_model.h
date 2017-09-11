@@ -6,11 +6,14 @@
 #include <QAbstractListModel>
 #include <QColor>
 
+#include "board.h"
+
 
 class TestModel : public QAbstractListModel {
     Q_OBJECT
 
     QList<QString> m_data;
+    Board board;
 
 public:
     enum Roles {
