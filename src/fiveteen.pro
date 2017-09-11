@@ -5,14 +5,16 @@ CONFIG += c++11
 
 SOURCES +=\
     main.cpp\
-    test_model.cpp\
     cell.cpp\
     board.cpp\
+    board_model.cpp \
+    game_controller.cpp
 
 HEADERS +=\
-    test_model.h\
     cell.h\
-    board.h\
+    board.h \
+    board_model.h \
+    game_controller.h
 
 RESOURCES += qml.qrc
 

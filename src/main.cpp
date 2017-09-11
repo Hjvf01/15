@@ -2,18 +2,18 @@
 #include <QQmlApplicationEngine>
 #include <QQuickView>
 
-#include "test_model.h"
-#include "cell.h"
+#include "board_model.h"
+#include "game_controller.h"
 
 int main(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<TestModel>("MyModels", 1, 0, "TestModel");
-    qmlRegisterType<Cell>("Cells", 1, 0, "Cell");
+    qmlRegisterType<BoardModel>("Models", 1, 0, "BModel");
+    qmlRegisterType<GameController>("Controllers", 1, 0, "GController");
 
-    QQuickView view;
-    view.setSource(QUrl("qrc:/main.qml"));
-    view.show();
+    QQmlApplicationEngine engine;
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    int res = app.exec();
 
-    return app.exec();
+    return res;
 }

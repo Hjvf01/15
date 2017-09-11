@@ -19,7 +19,6 @@ using std::random_device;
 using std::mt19937;
 using std::uniform_int_distribution;
 
-
 #include <QtCore/QList>
 
 
@@ -38,22 +37,23 @@ public:
 
     const QList<int>& operator [] (const int index) const;
     QList<int>& operator [] (const int index);
+    QList<QString> asStringList() const;
 
-    static QList<QList<int>> make();
-
+    QList<QList<int>> make();
 
     string str(void) const;
 
     int height(void) const { return board.size(); }
     int width(void) const { return board[0].size(); }
 
-    void swap(int left_row, int left_col, int right_row, int right_col);
+    int getRow(const int i) const { assert(i <= 15); return i / 4; }
+    int getCol(const int i) const { assert(i <= 15); return i % 4; }
 
+    void swap(int left_row, int left_col, int right_row, int right_col);
 
     friend ostream& operator << (ostream& os, const Board& board) {
         return os << board.str();
     }
-
 
     friend bool operator == (const Board& left, const Board& right) {
         assert(left.board.size() == right.board.size());
@@ -73,10 +73,14 @@ public:
     }
 
 private:
-    static QList<QList<int>> _make(
+    QList<QList<int>> _make(
         mt19937& gen, uniform_int_distribution<int>& distrub
     );
-    static bool solvable(const QList<QList<int>>& board);
+    bool solvable(const QList<QList<int>>& _board) const;
+
+    int findRow(int num) const;
+    int findCol(int num) const;
+    int findAmount(int num) const;
 };
 
 
