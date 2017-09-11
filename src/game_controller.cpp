@@ -3,9 +3,7 @@
 GameController::GameController(QObject* parent) :
     QObject(parent),
     m_amount(0)
-{
-    qDebug() << __PRETTY_FUNCTION__;
-}
+{}
 
 
 void GameController::move(const int index) {
@@ -40,12 +38,15 @@ void GameController::move(const int index) {
 }
 
 
+BoardModel* GameController::newModel() {
+    m_amount = 0;
+    m_model = new BoardModel;
+    return m_model;
+}
+
+
 void GameController::setModel(BoardModel *_model) {
-    qDebug() << _model;
     m_model = _model;
 }
 
-void GameController::setAmount(int a) { m_amount = a; }
-
-int GameController::amount() const { return m_amount; }
 BoardModel* GameController::model() const { return m_model; }

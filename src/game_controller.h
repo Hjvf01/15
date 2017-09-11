@@ -19,22 +19,13 @@ public:
     ~GameController() override = default;
 
     Q_INVOKABLE void move(const int index);
+    Q_INVOKABLE BoardModel* newModel();
 
-    int amount() const;
     BoardModel* model() const;
-
-    Q_INVOKABLE BoardModel* newModel() {
-        m_amount = 0;
-        m_model = new BoardModel;
-        return m_model;
-    }
-
     void setModel(BoardModel* _model);
-    void setAmount(int a);
 
 signals:
     void amountChanged(const QString& a);
-
     void endGame(const QString& turns);
 };
 
