@@ -9,7 +9,22 @@ BoardModel::BoardModel(QObject* parent) :
         { 5,  6,  7,  8},
         { 9, 10, 11, 12},
         {13, 14, 15,  0},
-    }))
+    })),
+    m_color(QColor(245, 245, 240)),
+    m_textColor(QColor(10, 10, 10))
+{}
+
+BoardModel::BoardModel(const Board& board) :
+    QAbstractListModel(nullptr),
+    m_final(Board({
+        { 1,  2,  3,  4},
+        { 5,  6,  7,  8},
+        { 9, 10, 11, 12},
+        {13, 14, 15,  0},
+    })),
+    m_board(board),
+    m_color(QColor(245, 245, 240)),
+    m_textColor(QColor(10, 10, 10))
 {}
 
 
@@ -26,7 +41,7 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const {
         if (isEmpty(index.row())) {
             return QVariant(QColor(0, 0, 0, 0));
         } else {
-            return QVariant(QColor(245, 245, 240));
+            return QVariant(m_color);
         }
     case Roles::TextRole:
         if (isEmpty(index.row())) {
@@ -44,7 +59,7 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const {
         if (isEmpty(index.row())) {
             return QVariant(QColor(0, 0, 0, 0));
         } else {
-            return QVariant(QColor(0, 0, 0));
+            return QVariant(m_textColor);
         }
     default:
         return QVariant();
@@ -124,3 +139,11 @@ void BoardModel::moveLeft(const int index) {
     );
     endMoveRows();
 }
+
+
+QColor BoardModel::color() const { return m_color; }
+QColor BoardModel::textColor() const { return m_textColor; }
+
+
+void BoardModel::setColor(const QColor &color) { m_color = color; }
+void BoardModel::setTextColor(const QColor &color) { m_textColor = color; }

@@ -21,9 +21,15 @@ enum class Direction {
 class BoardModel : public QAbstractListModel {
     Q_OBJECT
 
+    Q_PROPERTY(QColor color READ color WRITE setColor)
+    Q_PROPERTY(QColor textColor READ textColor WRITE setTextColor)
+
     Board m_final;
     Board m_board;
     QModelIndex empty;
+
+    QColor m_color;
+    QColor m_textColor;
 
 public:
     enum Roles {
@@ -34,6 +40,7 @@ public:
 
 public:
     BoardModel(QObject* parent=nullptr);
+    BoardModel(const Board& board);
     ~BoardModel() = default;
 
     virtual int rowCount(const QModelIndex &parent) const override;
@@ -45,6 +52,13 @@ public:
     }
 
     bool isEnd() const { return m_board == m_final; }
+
+    QColor color() const;
+    QColor textColor() const;
+    Board board() const { return m_board; }
+
+    void setColor(const QColor& color);
+    void setTextColor(const QColor& color);
 
     Direction direction(const int index) const;
 

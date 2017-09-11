@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.0
 import Qt.labs.controls 1.0
+import QtQuick.Dialogs 1.2
 
 import Models 1.0
 import Controllers 1.0
@@ -58,6 +59,16 @@ ApplicationWindow {
                     gameButton.text = "Start";
                     mainItem.title = "new game";
                     grid.model = gController.newModel();
+                }
+            }
+            Button {
+                id: settingsButton
+                Layout.alignment: Qt.AlignCenter
+                text: "Settings"
+                Layout.preferredHeight: mainItem.height * 0.1
+                Layout.preferredWidth: mainItem.width * 0.8
+                onClicked: {
+                    mainColorDialog.open();
                 }
             }
             Button {
