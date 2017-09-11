@@ -48,8 +48,9 @@ public:
         for(int row = 0; row < height; ++row) {
             int width = right.board[row].size();
             for(int col = 0; col < width; ++col) {
-                if(left[row][col] != right[row][col])
+                if (left[row][col] != right[row][col]) {
                     return false;
+                }
             }
         }
 

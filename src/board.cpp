@@ -46,17 +46,17 @@ QList<QList<int>> Board::_make() const {
         {13, 14, 15,  0},
     };
     for(int i = 0; i < 10; i++) {
-        result.swap(RANDOM(0, 3), RANDOM(0, 3));
+        result.swap(RANDOM(0, 4), RANDOM(0, 4));
     }
 
     for(QList<int>& row: result) {
-        row.swap(RANDOM(0, 3), RANDOM(0, 3));
+        row.swap(RANDOM(0, 4), RANDOM(0, 4));
     }
 
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < 100; i++) {
         std::swap(
-            result[RANDOM(0, 3)][RANDOM(0, 3)],
-            result[RANDOM(0, 3)][RANDOM(0, 3)]
+            result[RANDOM(0, 4)][RANDOM(0, 4)],
+            result[RANDOM(0, 4)][RANDOM(0, 4)]
         );
     }
 
