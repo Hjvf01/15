@@ -15,6 +15,15 @@ ApplicationWindow {
     color: "black"
     title: "fiveteen"
 
+    Item {
+        anchors.fill: parent
+        focus: true
+        Keys.onPressed: {
+            if(event.key == Qt.Key_Space)
+                startGame.open();
+        }
+    }
+
     Popup {
         id: startGame
         x: 0
@@ -47,6 +56,7 @@ ApplicationWindow {
                 Layout.preferredWidth: mainItem.width * 0.8
                 onClicked: {
                     gameButton.text = "Start";
+                    mainItem.title = "new game";
                     grid.model = gController.newModel();
                 }
             }

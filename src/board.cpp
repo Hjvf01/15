@@ -3,7 +3,6 @@
 
 Board::Board(const QList<QList<int>> &_board) : board(_board) {}
 Board::Board() : board(make()) {}
-Board::~Board() {}
 
 
 QList<QList<int>> Board::make() const {

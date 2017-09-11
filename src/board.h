@@ -23,7 +23,7 @@ class Board {
 public:
     Board(const QList<QList<int>>& _board);
     Board();
-    ~Board();
+    ~Board() = default;
 
     const QList<int>& operator [] (const int index) const;
     QList<int>& operator [] (const int index);
