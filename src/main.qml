@@ -57,18 +57,8 @@ ApplicationWindow {
                 Layout.preferredWidth: mainItem.width * 0.8
                 onClicked: {
                     gameButton.text = "Start";
-                    mainItem.title = "new game";
+                    mainItem.title = "new game!";
                     grid.model = gController.newModel();
-                }
-            }
-            Button {
-                id: settingsButton
-                Layout.alignment: Qt.AlignCenter
-                text: "Settings"
-                Layout.preferredHeight: mainItem.height * 0.1
-                Layout.preferredWidth: mainItem.width * 0.8
-                onClicked: {
-                    mainColorDialog.open();
                 }
             }
             Button {

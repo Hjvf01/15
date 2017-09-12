@@ -16,21 +16,24 @@ void GameController::move(const int index) {
     switch (direction) {
     case Direction::Up:
         m_model->moveUp(index);
+        ++m_amount;
         break;
     case Direction::Left:
         m_model->moveLeft(index);
+        ++m_amount;
         break;
     case Direction::Down:
         m_model->moveDown(index);
+        ++m_amount;
         break;
     case Direction::Right:
         m_model->moveRight(index);
+        ++m_amount;
         break;
     default:
         break;
     }
 
-    ++m_amount;
     emit amountChanged(QString::number(m_amount));
 
     if (m_model->isEnd())
