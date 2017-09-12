@@ -38,5 +38,9 @@ int main(int, char**) {
     for(int i = 0; i < 16; i++)
         cout << "i: " << i << " - " << board.getRow(i) << "   " << board.getCol(i) << endl;
 
+
+    board = Board(make_final(10));
+    cout << board << endl;
+
     return 0;
 }

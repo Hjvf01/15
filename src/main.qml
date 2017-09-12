@@ -5,8 +5,10 @@ import QtQuick.Layouts 1.0
 import Qt.labs.controls 1.0
 import QtQuick.Dialogs 1.2
 
+
 import Models 1.0
 import Controllers 1.0
+
 
 ApplicationWindow {
     id: mainItem
@@ -133,8 +135,8 @@ ApplicationWindow {
         anchors.margins: 0
         anchors.fill: parent
         model: BModel {}
-        cellHeight: height / 4
-        cellWidth: width / 4
+        cellHeight: height / model.size
+        cellWidth: width / model.size
         focus: true
         interactive: false
 
@@ -152,7 +154,7 @@ ApplicationWindow {
                     color: model.textColor
                     font.pixelSize: {
                         grid.cellHeight < grid.cellWidth ?
-                            grid.cellHeight - 25 : grid.cellWidth - 25;
+                            grid.cellHeight * 0.7 : grid.cellWidth * 0.7;
                     }
                 }
             }

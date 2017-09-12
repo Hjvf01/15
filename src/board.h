@@ -12,13 +12,14 @@ using std::swap;
 #define RANDOM(MIN, MAX) qrand() % (MAX) + (MIN)
 
 
+static const int SIZE = 8;
+
+
+QList<QList<int>> make_final(const int d);
+
+
 class Board {
-    QList<QList<int>> board = {
-        { 1,  2,  3,  4},
-        { 5,  6,  7,  8},
-        { 9, 10, 11, 12},
-        {13, 14, 15,  0}
-    };
+    QList<QList<int>> board;
 
 public:
     Board(const QList<QList<int>>& _board);
@@ -34,8 +35,8 @@ public:
     int height(void) const { return board.size(); }
     int width(void) const { return board[0].size(); }
 
-    int getRow(const int i) const { assert(i <= 15); return i / 4; }
-    int getCol(const int i) const { assert(i <= 15); return i % 4; }
+    int getRow(const int i) const;
+    int getCol(const int i) const;
 
     void swap(int left_row, int left_col, int right_row, int right_col);
 
@@ -44,17 +45,7 @@ public:
         for(int i = 0; i < left.board.size(); ++i)
             assert(left[i].size() == right[i].size());
 
-        int height = left.board.size();
-        for(int row = 0; row < height; ++row) {
-            int width = right.board[row].size();
-            for(int col = 0; col < width; ++col) {
-                if (left[row][col] != right[row][col]) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return left.board == right.board;
     }
 
 private:

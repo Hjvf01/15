@@ -4,24 +4,14 @@
 
 BoardModel::BoardModel(QObject* parent) :
     QAbstractListModel(parent),
-    m_final(Board({
-        { 1,  2,  3,  4},
-        { 5,  6,  7,  8},
-        { 9, 10, 11, 12},
-        {13, 14, 15,  0},
-    })),
+    m_final(Board(make_final(SIZE))),
     m_color(QColor(245, 245, 240)),
     m_textColor(QColor(10, 10, 10))
 {}
 
 BoardModel::BoardModel(const Board& board) :
     QAbstractListModel(nullptr),
-    m_final(Board({
-        { 1,  2,  3,  4},
-        { 5,  6,  7,  8},
-        { 9, 10, 11, 12},
-        {13, 14, 15,  0},
-    })),
+    m_final(Board(make_final(SIZE))),
     m_board(board),
     m_color(QColor(245, 245, 240)),
     m_textColor(QColor(10, 10, 10))
@@ -67,14 +57,7 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const {
 }
 
 
-QHash<int, QByteArray> BoardModel::roleNames() const {
-    QHash<int, QByteArray> roles;
-    roles[Roles::ColorRole] = "color";
-    roles[Roles::TextRole] = "text";
-    roles[Roles::TextColor] = "textColor";
-
-    return roles;
-}
+QHash<int, QByteArray> BoardModel::roleNames() const { return m_roles; }
 
 
 Direction BoardModel::direction(const int index) const {
@@ -96,14 +79,16 @@ Direction BoardModel::direction(const int index) const {
 
 
 void BoardModel::moveUp(const int index) {
-    beginMoveRows(empty, index, index, empty, index - 4);
+    beginMoveRows(empty, index, index, empty, index - SIZE);
     m_board.swap(
         m_board.getRow(index), m_board.getCol(index),
-        m_board.getRow(index - 4), m_board.getCol(index - 4)
+        m_board.getRow(index - SIZE), m_board.getCol(index - SIZE)
     );
     endMoveRows();
 
-    beginMoveRows(empty, index - 3, index - 3, empty, index + 1);
+    beginMoveRows(
+        empty, index - (SIZE - 1), index - (SIZE - 1), empty, index + 1
+    );
     endMoveRows();
 }
 
@@ -119,14 +104,14 @@ void BoardModel::moveRight(const int index) {
 
 
 void BoardModel::moveDown(const int index) {
-    beginMoveRows(empty, index, index, empty, index + 5);
+    beginMoveRows(empty, index, index, empty, index + SIZE + 1);
     m_board.swap(
         m_board.getRow(index), m_board.getCol(index),
-        m_board.getRow(index + 4), m_board.getCol(index + 4)
+        m_board.getRow(index + SIZE), m_board.getCol(index + SIZE)
     );
     endMoveRows();
 
-    beginMoveRows(empty, index + 3, index + 3, empty, index);
+    beginMoveRows(empty, index + (SIZE - 1), index + (SIZE - 1), empty, index);
     endMoveRows();
 }
 

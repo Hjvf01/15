@@ -21,8 +21,7 @@ enum class Direction {
 class BoardModel : public QAbstractListModel {
     Q_OBJECT
 
-    Q_PROPERTY(QColor color READ color WRITE setColor)
-    Q_PROPERTY(QColor textColor READ textColor WRITE setTextColor)
+    Q_PROPERTY(int size READ size NOTIFY sizeChanged)
 
     Board m_final;
     Board m_board;
@@ -30,6 +29,12 @@ class BoardModel : public QAbstractListModel {
 
     QColor m_color;
     QColor m_textColor;
+
+    QHash<int, QByteArray> m_roles = {
+        {Roles::ColorRole, "color"},
+        {Roles::TextRole, "text"},
+        {Roles::TextColor, "textColor"},
+    };
 
 public:
     enum Roles {
@@ -56,6 +61,7 @@ public:
     QColor color() const;
     QColor textColor() const;
     Board board() const { return m_board; }
+    int size() const { return SIZE; }
 
     void setColor(const QColor& color);
     void setTextColor(const QColor& color);
@@ -66,6 +72,9 @@ public:
     void moveLeft(const int index);
     void moveDown(const int index);
     void moveRight(const int index);
+
+signals:
+    void sizeChanged();
 };
 
 #endif // TESTMODEL_H

@@ -18,6 +18,17 @@ QList<QList<int>> Board::make() const {
 }
 
 
+int Board::getRow(const int i) const {
+    assert(i <= height() * width() - 1);
+    return i / SIZE;
+}
+
+int Board::getCol(const int i) const {
+    assert(i <= height() * width() - 1);
+    return i % SIZE;
+}
+
+
 const QList<int>& Board::operator [](const int index) const {
     assert(index <= board.size() - 1);
     return board[index];
@@ -36,26 +47,21 @@ void Board::swap(int left_row, int left_col, int right_row, int right_col) {
 }
 
 
-
 QList<QList<int>> Board::_make() const {
-    QList<QList<int>> result = {
-        { 1,  2,  3,  4},
-        { 5,  6,  7,  8},
-        { 9, 10, 11, 12},
-        {13, 14, 15,  0},
-    };
+    QList<QList<int>> result = make_final(SIZE);
+
     for(int i = 0; i < 10; i++) {
-        result.swap(RANDOM(0, 4), RANDOM(0, 4));
+        result.swap(RANDOM(0, SIZE), RANDOM(0, SIZE));
     }
 
     for(QList<int>& row: result) {
-        row.swap(RANDOM(0, 4), RANDOM(0, 4));
+        row.swap(RANDOM(0, SIZE), RANDOM(0, SIZE));
     }
 
     for(int i = 0; i < 100; i++) {
         std::swap(
-            result[RANDOM(0, 4)][RANDOM(0, 4)],
-            result[RANDOM(0, 4)][RANDOM(0, 4)]
+            result[RANDOM(0, SIZE)][RANDOM(0, SIZE)],
+            result[RANDOM(0, SIZE)][RANDOM(0, SIZE)]
         );
     }
 
@@ -113,9 +119,25 @@ bool Board::solvable(const QList<QList<int>>& _board) const {
 
     assert(e != 0);
 
-    for(int elem: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}) {
+    for(int elem = 1; elem <= SIZE * SIZE - 1; elem++) {
         sum += findAmount(_board, elem) + e;
     }
 
     return ((sum % 2) == 0);
+}
+
+
+QList<QList<int>> make_final(const int d) {
+    int count = 1;
+    QList<QList<int>> result;
+    for (int i = 0; i < d; i++) {
+        result.append(QList<int>());
+        for (int j = 0; j < d; j++) {
+            result[i].append(count);
+            ++count;
+        }
+    }
+
+    result[d - 1][d - 1] = 0;
+    return result;
 }
